@@ -15,7 +15,6 @@ use super::Tui;
 
 #[derive(Debug, Default)]
 pub struct App {
-    counter: u8,
     exit: bool,
 }
 
@@ -46,8 +45,6 @@ impl App {
     fn handle_key_event(&mut self, key_event: KeyEvent) -> color_eyre::Result<()> {
         match key_event.code {
             KeyCode::Char('q') => self.exit(),
-            KeyCode::Left => self.decrement_counter()?,
-            KeyCode::Right => self.increment_counter()?,
             _ => {}
         }
         Ok(())
@@ -57,18 +54,6 @@ impl App {
         self.exit = true;
     }
 
-    fn decrement_counter(&mut self) -> color_eyre::Result<()> {
-        if self.counter > 0 {
-            self.counter -= 1;
-        }
-
-        Ok(())
-    }
-
-    fn increment_counter(&mut self) -> color_eyre::Result<()> {
-        self.counter += 1;
-        Ok(())
-    }
 }
 
 impl Widget for &App {
@@ -90,7 +75,7 @@ impl Widget for &App {
 
         let counter_text = Text::from(vec![Line::from(vec![
             "Value: ".into(),
-            self.counter.to_string().yellow(),
+            "test".to_string().yellow(),
         ])]);
 
         Paragraph::new(counter_text)
